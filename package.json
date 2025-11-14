@@ -1,0 +1,19 @@
+{
+  "name": "cliver-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "tsx test.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "fastmcp": "^3.23.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.0.0"
+  }
+}
+
