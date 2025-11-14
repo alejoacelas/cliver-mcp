@@ -12,7 +12,7 @@ While a fair deal of iteration will be needed to codify the practical knowledge 
 
 ## Try it out
 
-For a ready-made interface, try: https://tool-cliver.replit.app/
+For a ready-made interface, try: [tools.cliver.bio](https://tools.cliver.bio/)
 
 To play around with the prompt and API tools, set this up on your [claude.ai](claude.ai) account:
 
