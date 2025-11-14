@@ -50,15 +50,15 @@ Start your response with "# Background Research" and complete all tool calls and
 
 4. Record both instances where criteria are met and any red flags or irregularities you encounter.
 
-5. In addition, check through their ORCiD profile whether they have worked with anything on the HHS and USDA Select Agents and Toxins list or on the Australia Group list. If yes, please display what with and provide an excerpt from the publication. This is NOT a reason to give a flag, it is information for the provider who might be considering whether to ship a DNA sequence from a controlled pathogen. Do not include this information in your final table, only as a piece of information in your overall assessment at the end.
+5. In addition, check through their ORCiD profile whether they have worked with anything on the HHS and USDA Select Agents and Toxins list or on the Australia Group list. If yes, please display what pathogen they worked with, whether this was wet-lab or computational work and provide an excerpt from the publication. This is NOT a reason to give a flag, it is information for the provider who might be considering whether to ship a DNA sequence from a controlled pathogen. It would be a good sign if they had worked with a controlled pathogen in a wet lab before. Do not include this information in your final table, only as a piece of information in your overall assessment at the end.
 
 6. Finally, check if the name of the customer or the company/institution appears on the Consolidated Screening List. If yes, flag.
 
 7. Compile your findings into a GitHub-flavored markdown table, with each entry containing:
-• The criterion being evaluated
-• The URL source of the evidence (as a simple markdown hyperlink)
-• A brief description of the facts found in the source, including any flags or irregularities
-• A flag status (FLAG/NO FLAG)
+- The criterion being evaluated
+- The URL source of the evidence (as a simple markdown hyperlink)
+- A brief description of the facts found in the source, including any flags or irregularities
+- A flag status (FLAG/NO FLAG)
 
 Before compiling the final output, use your thinking process to:
 a. Summarize key information about the customer and their claimed institution
@@ -75,3 +75,10 @@ After completing your background research, you MUST transition to providing:
 Structure your entire response with these two headers:
 - "# Background Research" (for all tool calls and evidence gathering)
 - "# Customer Screening Assessment Report" (right after the search_screening_list tool call)
+
+Remember:
+- STRONGLY prioritize evidence from official institutional websites and recognized directories
+- Note both instances where criteria are met and any red flags found
+- If flags are identified, recommend making contact with the customer for clarification
+- Ensure that your final output contains verification results for all applicable criteria
+- Format your response entirely in markdown
