@@ -10,7 +10,167 @@ The implementation consists of:
 
 While a fair deal of iteration will be needed to codify the practical knowledge of customer screening into a prompt, it wouldn't surprise us if something like this (a prompt + some APIs) were enough to cut the average time it takes to screen DNA synthesis customers by a double-digit percentage. That's already the case for many [financial applications](https://www.greenlite.ai/).
 
-## Try it out
+## REST API
+
+This repository also includes a REST API for programmatic customer screening.
+
+### API Endpoints
+
+#### POST /screenings
+
+Submit a customer for screening.
+
+**Request:**
+```bash
+curl -X POST http://localhost:3000/screenings \
+  -H "Authorization: Bearer your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customer": {
+      "name": "John Smith",
+      "email": "john.smith@university.edu",
+      "institution": "University of Example",
+      "orcid": "0000-0001-2345-6789",
+      "address": "123 Research Dr, Cambridge, MA 02139"
+    }
+  }'
+```
+
+**Response (success):**
+```json
+{
+  "job_id": "uuid",
+  "status": "complete",
+  "raw_report": "# Customer Screening Assessment Report...",
+  "metadata": {
+    "duration_ms": 45000,
+    "tools_called": ["get_orcid_profile", "search_screening_list"]
+  }
+}
+```
+
+**Response (error):**
+```json
+{
+  "job_id": "uuid",
+  "status": "error",
+  "error": {
+    "message": "error description",
+    "code": "SCREENING_FAILED | TIMEOUT | INVALID_INPUT"
+  },
+  "metadata": {
+    "duration_ms": 1000,
+    "tools_called": []
+  }
+}
+```
+
+#### GET /health
+
+Health check endpoint (no authentication required).
+
+```bash
+curl http://localhost:3000/health
+```
+
+**Response:**
+```json
+{"status": "ok"}
+```
+
+### Local Development Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/alejoacelas/cliver-mcp.git
+   cd cliver-mcp
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables:**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your API keys
+   ```
+
+4. **Run in development mode:**
+   ```bash
+   npm run dev
+   ```
+
+   The server will start on `http://localhost:3000` with hot reload enabled.
+
+5. **Test the API:**
+   ```bash
+   # Health check
+   curl http://localhost:3000/health
+
+   # Submit a screening (replace with your API key)
+   curl -X POST http://localhost:3000/screenings \
+     -H "Authorization: Bearer your_api_key_here" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "customer": {
+         "name": "Hanna Palya",
+         "email": "Hanna.palya@warwick.ac.uk",
+         "institution": "University of Warwick",
+         "orcid": "0000-0001-6890-2906"
+       }
+     }'
+   ```
+
+### Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `API_KEY` | Yes | API key for authenticating requests |
+| `ANTHROPIC_API_KEY` | Yes | Anthropic API key for Claude |
+| `AXIOM_TOKEN` | No | Axiom token for logging (optional but recommended) |
+| `AXIOM_DATASET` | No | Axiom dataset name (defaults to `ansa-data`) |
+| `MCP_BASE_URL` | No | Base URL for MCP server (defaults to `http://localhost:3000`) |
+| `GOOGLE_MAPS_API_KEY` | Yes | Google Maps API key for distance calculations |
+| `CONSOLIDATED_SCREENING_LIST_API_KEY` | Yes | API key for sanctions list lookups |
+| `PORT` | No | Server port (defaults to `3000`) |
+
+### Heroku Deployment
+
+1. **Create a Heroku app:**
+   ```bash
+   heroku create your-app-name
+   ```
+
+2. **Set environment variables:**
+   ```bash
+   heroku config:set API_KEY=your_api_key
+   heroku config:set ANTHROPIC_API_KEY=sk-ant-api03-xxx
+   heroku config:set AXIOM_TOKEN=xaat-xxx
+   heroku config:set AXIOM_DATASET=ansa-data
+   heroku config:set MCP_BASE_URL=https://your-app-name.herokuapp.com
+   heroku config:set GOOGLE_MAPS_API_KEY=AIza-xxx
+   heroku config:set CONSOLIDATED_SCREENING_LIST_API_KEY=xxx
+   ```
+
+3. **Deploy:**
+   ```bash
+   git push heroku main
+   ```
+
+4. **Verify deployment:**
+   ```bash
+   curl https://your-app-name.herokuapp.com/health
+   ```
+
+### Build Commands
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm start` - Run the compiled production server
+
+## Try it out (Interactive)
 
 For a ready-made interface, try: [tools.cliver.bio](https://tools.cliver.bio/)
 
