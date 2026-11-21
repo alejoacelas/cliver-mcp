@@ -70,10 +70,10 @@ export async function screenCustomer(customerInfo: string) {
 }
 
 
-// Example customer info
-const customerInfo = `Name: Hanna Palya
-Institution: University of Warwick
-Email: Hanna.palya@warwick.ac.uk
-ORCID: 0000-0001-6890-2906`;
+// Example customer info: Josiah Carberry is the fictitious researcher ORCID uses in its own documentation
+const customerInfo = `Name: Josiah Carberry
+Institution: Brown University
+Email: josiah.carberry@example.edu
+ORCID: 0000-0002-1825-0097`;
 
 screenCustomer(customerInfo).catch(console.error);
